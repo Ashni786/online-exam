@@ -1,0 +1,59 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% block content%}
+<style>
+    .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin-left:50px;;
+  margin-top:0px;
+  text-align: center;
+  float:left;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+<div class="card">
+  <img src="{% static 'images/contact-us/contactus.jpg'%}" alt="John" style="height:450px;width:100%;border-bottom:40px solid black;border-top:40px solid black;">
+  <h1>Ashwani Kumar</h1>
+  <p class="title">MCA Last Year Student</p>
+  <p>Amardeep Singh Shergill College Mukandpur <br>Guru Nanak Dev University</p>
+  <span class="icon"><i class="fas  fa-at"></i></span>ashni8151@gmail.com</i><br>
+
+  <span class="icon"><i class="fas fal fa-mobile"></i></span>  9115168151  </i> <br>
+ <span class="icon"><i class="fas fal fa-mobile"></i></span>ashni786</i><br>
+  <p><button>Contact Me</button></p>
+</div>
+<div class="card">
+  <img src="{% static 'images/contact-us/chetan.png'%}" style="height:450px;width:100%;border-bottom:40px solid black;border-top:40px solid black;">
+  <h1>Chetan Kumar</h1>
+  <p class="title">MCA Last Year Student</p>
+  <p>Amardeep Singh Shergill College Mukandpur <br> Guru Nanak Dev University</p>
+  <span class="icon"><i class="fas  fa-at"></i></span>ChetanSidhu35@gmail.com<br>
+  <span class="icon"><i class="fas fal fa-mobile"></i></span> 8968033048 </i> <br>
+ <span class="icon"><i class="fas fal fa-mobile"></i></span>chetan89689</i><br>
+  <p><button>Contact Me</button></p>
+</div>
+{% endblock %}

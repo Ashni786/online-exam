@@ -1,0 +1,36 @@
+{% extends "dashboard.html" %}
+
+<head>
+
+    <title>Categary of Exam</title>
+    {% block content%}
+<style>
+    .cate
+    {
+    height:200px;
+    width:280px;
+    background-color:#6f4e37;
+    float:left;
+    margin-left:20px;
+    margin-top:10px;
+    border-radius: 25px;
+
+    }
+    .cate:hover
+      {background-color: black;
+}
+
+</style>
+</head>
+<body>
+<h1 style="text-align:center;">Select the Exam Categary</h1>
+ {% for choice in choices %}
+       <a href="{{ choice.0 }}" style="text-align:center;margin-top:50px;color:white;">
+    <div class="cate">
+     <h3 style="margin-top:70px;">{{ choice.1 }}</h3>
+    </div>
+</a>
+{%endfor%}
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,420 @@
+{% load static %}
+{% block content%}
+<head>
+<style>
+	body{
+    font-size: 20px;
+    font-family: monospace;
+}
+
+#container{
+    margin : 20px auto;
+    background-color: white;
+    height: 95%;
+    width : 90%;
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px 0px;
+    position: relative;
+    border:5px solid black;
+}
+
+#start{
+    font-size: 1.5em;
+    font-weight: bolder;
+    word-break: break-all;
+    width:200px;
+    height:120px;
+    border : 2px solid lightgrey;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    left:35%;
+    top:30%;
+    color : lightgrey;
+}
+#start:hover{
+    border: 15px solid black;
+    border-radius:5%;
+    color : black;
+}
+
+
+#question{
+    width:75%;
+    height : 355px;
+    margin-left:100px;
+    position: relative;
+    right:0;
+    top:0;
+}
+#question p{
+    margin : 0;
+    padding : 15px;
+    font-size: 1.25em;
+    background-color:black;
+    color:white;
+    border-radius:10px;
+}
+
+#choices{
+    width : 480px;
+    position: absolute;
+    right : 0;
+    top : 125px;
+    padding : 10px
+    margin-left:0px;
+
+}
+.choice{
+    display: inline-block;
+    width : 380px;
+    text-align: center;
+    border : 1px solid grey;
+    border-radius: 5px;
+    cursor: pointer;
+    padding : 10px;
+     margin-top:10px;
+}
+.choice:hover{
+    background-color:black;
+    color:white;
+}
+
+#timer{
+    position: absolute;
+    height : 100px;
+    width : 200px;
+    bottom : 0px;
+    text-align: center;
+}
+#counter{
+    font-size: 3em;
+}
+#btimeGauge{
+    width : 150px;
+    height : 10px;
+    border-radius: 10px;
+    background-color: lightgray;
+    margin-left : 25px;
+}
+#timeGauge{
+    height : 10px;
+    border-radius: 10px;
+    background-color: mediumseagreen;
+    margin-top : -10px;
+    margin-left : 25px;
+}
+#progress{
+    width : 500px;
+    position: absolute;
+    bottom : 0px;
+    right : 0px;
+    padding:5px;
+    text-align: right;
+}
+.prog{
+    width : 35px;
+    height : 35px;
+    border: 1px solid #000;
+    display: inline-block;
+    border-radius: 50%;
+    margin-left : 5px;
+    margin-right : 5px;
+}
+#scoreContainer{
+    margin-top:-400px;
+    background-color: white;
+    opacity: 0.8;
+    height:100%;
+    width : 100%;
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px 0px;
+    position: absolute;
+    display: none;
+}
+#scoreContainer img{
+    position: absolute;
+    top:100px;
+    left:325px;
+}
+#scoreContainer p{
+    position: relative;
+    display: block;
+    width : 100px;
+    height :100px;
+    top:130px;
+    left:525px;
+    font-size: 3.5em;
+    font-weight: bold;
+    text-align: center;
+}
+#qImg{
+    width : 300px;
+    height : 300px;
+    position: absolute;
+    left : 100px;
+    top : 120px;
+}
+#qImg img{
+
+    border-top-left-radius: 5px;
+}
+.uname{
+margin-top:0px;
+height:50px;
+background-color:black;
+color:white;
+text-align:center;
+}
+</style>
+</head>
+<body>
+    <div id="container">
+        <div id="start">Start Exam!</div>
+        <div id="quiz" style="display: none;">
+            <div id="question" style="margin-top:10px;"></div>
+             <div id="qImg">  <img src="{{request.user.userprofile.image.url}}" height="250px" width="100%" alt="John">
+                 <h1 class="uname">{{user.first_name}} {{user.last_name}}</h1></div>
+            <div id="choices">
+                <div class="choice" id="A" onclick="checkAnswer('A')"></div>
+                <div class="choice" id="B" onclick="checkAnswer('B')"></div>
+               	<div class="choice" id="C" onclick="checkAnswer('C')"></div>
+                <div class="choice" id="D" onclick="checkAnswer('D')"></div>
+
+            </div>
+
+            <div id="timer">
+                <div id="counter"></div>
+                <div id="btimeGauge"></div>
+                <div id="timeGauge"></div>
+            </div>
+            <div id="progress"></div>
+        </div>
+        <div id="scoreContainer" style="display: none">
+
+        </div>
+
+    </div>
+</body>
+</html>
+<script>
+
+// select all elements
+const start = document.getElementById("start");
+const quiz = document.getElementById("quiz");
+const question = document.getElementById("question");
+const choiceA = document.getElementById("A");
+const choiceB = document.getElementById("B");
+const choiceC = document.getElementById("C");
+const choiceD = document.getElementById("D");
+const correct = document.getElementById("correct");
+const counter = document.getElementById("counter");
+const timeGauge = document.getElementById("timeGauge");
+const progress = document.getElementById("progress");
+const scoreDiv = document.getElementById("scoreContainer");
+
+// create our questions
+let questions = [
+    {
+        question : "{% for que in ques %}{% if forloop.counter == 1 %}{{forloop.counter}}.{{que.question}}{% endif %}{% endfor %}",
+        choiceA : "{% for que in ques %}{% if forloop.counter == 1 %}{{que.optiona}}{% endif %}{% endfor %}",
+        choiceB : "{% for que in ques %}{% if forloop.counter == 1 %}{{que.optionb}}{% endif %}{% endfor %}",
+        choiceC : "{% for que in ques %}{% if forloop.counter == 1 %}{{que.optionc}}{% endif %}{% endfor %}",
+		choiceD : "{% for que in ques %}{% if forloop.counter == 1 %}{{que.optiond}}{% endif %}{% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 1 %}{{que.answer}}{% endif %}{% endfor %}"
+    },{
+        question : "{% for que in ques %} {% if forloop.counter == 2 %}{{forloop.counter}}.{{que.question}}{% endif %} {% endfor %}",
+        choiceA : "{% for que in ques %} {% if forloop.counter == 2 %}{{que.optiona}}{% endif %} {% endfor %}",
+        choiceB : "{% for que in ques %} {% if forloop.counter == 2 %}{{que.optionb}}{% endif %} {% endfor %}",
+        choiceC : "{% for que in ques %} {% if forloop.counter == 2 %}{{que.optionc}}{% endif %} {% endfor %}",
+		choiceD : "{% for que in ques %} {% if forloop.counter == 2 %}{{que.optiond}}{% endif %} {% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 2 %}{{que.answer}}{% endif %}{% endfor %}"
+    },{
+        question : "{% for que in ques %} {% if forloop.counter == 3 %}{{forloop.counter}}.{{que.question}}{% endif %} {% endfor %}",
+        choiceA : "{% for que in ques %} {% if forloop.counter == 3 %}{{que.optiona}}{% endif %} {% endfor %}",
+        choiceB : "{% for que in ques %} {% if forloop.counter == 3 %}{{que.optionb}}{% endif %} {% endfor %}",
+        choiceC : "{% for que in ques %} {% if forloop.counter == 3 %}{{que.optionc}}{% endif %} {% endfor %}",
+		choiceD : "{% for que in ques %} {% if forloop.counter == 3 %}{{que.optiond}}{% endif %} {% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 3 %}{{que.answer}}{% endif %}{% endfor %}"
+    },{
+        question : "{% for que in ques %} {% if forloop.counter == 4 %}{{forloop.counter}}.{{que.question}}{% endif %} {% endfor %}",
+        choiceA : "{% for que in ques %} {% if forloop.counter == 4 %}{{que.optiona}}{% endif %} {% endfor %}",
+        choiceB : "{% for que in ques %} {% if forloop.counter == 4 %}{{que.optionb}}{% endif %} {% endfor %}",
+        choiceC : "{% for que in ques %} {% if forloop.counter == 4 %}{{que.optionc}}{% endif %} {% endfor %}",
+		choiceD : "{% for que in ques %} {% if forloop.counter == 4 %}{{que.optiond}}{% endif %} {% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 4 %}{{que.answer}}{% endif %}{% endfor %}"
+    },{
+        question : "{% for que in ques %} {% if forloop.counter == 5 %}{{forloop.counter}}.{{que.question}}{% endif %} {% endfor %}",
+        choiceA : "{% for que in ques %} {% if forloop.counter == 5 %}{{que.optiona}}{% endif %} {% endfor %}",
+        choiceB : "{% for que in ques %} {% if forloop.counter == 5 %}{{que.optionb}}{% endif %} {% endfor %}",
+        choiceC : "{% for que in ques %} {% if forloop.counter == 5 %}{{que.optionc}}{% endif %} {% endfor %}",
+		choiceD : "{% for que in ques %} {% if forloop.counter == 5 %}{{que.optiond}}{% endif %} {% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 5 %}{{que.answer}}{% endif %}{% endfor %}"
+    },{
+        question : "{% for que in ques %} {% if forloop.counter == 6 %}{{forloop.counter}}.{{que.question}}{% endif %} {% endfor %}",
+        choiceA : "{% for que in ques %} {% if forloop.counter == 6 %}{{que.optiona}}{% endif %} {% endfor %}",
+        choiceB : "{% for que in ques %} {% if forloop.counter == 6 %}{{que.optionb}}{% endif %} {% endfor %}",
+        choiceC : "{% for que in ques %} {% if forloop.counter == 6 %}{{que.optionc}}{% endif %} {% endfor %}",
+		choiceD : "{% for que in ques %} {% if forloop.counter == 6 %}{{que.optiond}}{% endif %} {% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 6 %}{{que.answer}}{% endif %}{% endfor %}"
+    },{
+        question : "{% for que in ques %} {% if forloop.counter == 7 %}{{forloop.counter}}.{{que.question}}{% endif %} {% endfor %}",
+        choiceA : "{% for que in ques %} {% if forloop.counter == 7 %}{{que.optiona}}{% endif %} {% endfor %}",
+        choiceB : "{% for que in ques %} {% if forloop.counter == 7 %}{{que.optionb}}{% endif %} {% endfor %}",
+        choiceC : "{% for que in ques %} {% if forloop.counter == 7 %}{{que.optionc}}{% endif %} {% endfor %}",
+		choiceD : "{% for que in ques %} {% if forloop.counter == 7 %}{{que.optiond}}{% endif %} {% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 7 %}{{que.answer}}{% endif %}{% endfor %}"
+    },{
+        question : "{% for que in ques %} {% if forloop.counter == 8 %}{{forloop.counter}}.{{que.question}}{% endif %} {% endfor %}",
+        choiceA : "{% for que in ques %} {% if forloop.counter == 8 %} {{que.optiona}}{% endif %} {% endfor %}",
+        choiceB : "{% for que in ques %} {% if forloop.counter == 8 %} {{que.optionb}}{% endif %} {% endfor %}",
+        choiceC : "{% for que in ques %} {% if forloop.counter == 8 %} {{que.optionc}}{% endif %} {% endfor %}",
+		choiceD : "{% for que in ques %} {% if forloop.counter == 8 %} {{que.optiond}}{% endif %} {% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 8 %}{{que.answer}}{% endif %}{% endfor %}"
+    },{
+        question : "{% for que in ques %} {% if forloop.counter == 9 %}{{forloop.counter}}.{{que.question}}{% endif %} {% endfor %}",
+        choiceA : "{% for que in ques %} {% if forloop.counter == 9 %} {{que.optiona}}{% endif %} {% endfor %}",
+        choiceB : "{% for que in ques %} {% if forloop.counter == 9 %} {{que.optionb}}{% endif %} {% endfor %}",
+        choiceC : "{% for que in ques %} {% if forloop.counter == 9 %} {{que.optionc}}{% endif %} {% endfor %}",
+		choiceD : "{% for que in ques %} {% if forloop.counter == 9 %} {{que.optiond}}{% endif %} {% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 9 %}{{que.answer}}{% endif %}{% endfor %}"
+    },{
+        question : "{% for que in ques %} {% if forloop.counter == 10 %}{{forloop.counter}}.{{que.question}}{% endif %} {% endfor %}",
+        choiceA : "{% for que in ques %} {% if forloop.counter == 10 %} {{que.optiona}}{% endif %} {% endfor %}",
+        choiceB : "{% for que in ques %} {% if forloop.counter == 10 %} {{que.optionb}}{% endif %} {% endfor %}",
+        choiceC : "{% for que in ques %} {% if forloop.counter == 10 %} {{que.optionc}}{% endif %} {% endfor %}",
+		choiceD : "{% for que in ques %} {% if forloop.counter == 10 %} {{que.optiond}}{% endif %} {% endfor %}",
+        correct : "{% for que in ques %}{% if forloop.counter == 10 %}{{que.answer}}{% endif %}{% endfor %}"
+    }
+];
+
+// create some variables
+
+const lastQuestion = questions.length - 1;
+let runningQuestion = 0;
+let count = 0;
+const questionTime = 10; // 10s
+const gaugeWidth = 150; // 150px
+const gaugeUnit = gaugeWidth / questionTime;
+let TIMER;
+let score = 0;
+
+// render a question
+function renderQuestion(){
+    let q = questions[runningQuestion];
+
+    question.innerHTML = "<p>"+ q.question +"</p>";
+    choiceA.innerHTML = q.choiceA;
+    choiceB.innerHTML = q.choiceB;
+    choiceC.innerHTML = q.choiceC;
+    choiceD.innerHTML = q.choiceD;
+
+}
+
+start.addEventListener("click",startQuiz);
+
+// start quiz
+function startQuiz(){
+    start.style.display = "none";
+    renderQuestion();
+    quiz.style.display = "block";
+    renderProgress();
+    renderCounter();
+    TIMER = setInterval(renderCounter,1000); // 1000ms = 1s
+}
+
+// render progress
+function renderProgress(){
+    for(let qIndex = 0; qIndex <= lastQuestion; qIndex++){
+        progress.innerHTML += "<div class='prog' id="+ qIndex +"></div>";
+    }
+}
+
+// counter render
+
+function renderCounter(){
+    if(count <= questionTime){
+        counter.innerHTML = count;
+        timeGauge.style.width = count * gaugeUnit + "px";
+        count++
+    }else{
+        count = 0;
+        // change progress color to red
+        answerIsWrong();
+        if(runningQuestion < lastQuestion){
+            runningQuestion++;
+            renderQuestion();
+        }else{
+            // end the quiz and show the score
+            clearInterval(TIMER);
+            scoreRender();
+        }
+    }
+}
+
+// checkAnwer
+
+function checkAnswer(answer){
+    if( answer == questions[runningQuestion].correct){
+        // answer is correct
+        score++;
+        // change progress color to green
+        answerIsCorrect();
+    }else{
+        // answer is wrong
+        // change progress color to red
+        answerIsWrong();
+    }
+    count = 0;
+    if(runningQuestion < lastQuestion){
+        runningQuestion++;
+        renderQuestion();
+    }else{
+        // end the quiz and show the score
+        clearInterval(TIMER);
+        scoreRender();
+    }
+}
+
+// answer is correct
+function answerIsCorrect(){
+    document.getElementById(runningQuestion).style.backgroundColor = "#0f0";
+}
+
+// answer is Wrong
+function answerIsWrong(){
+    document.getElementById(runningQuestion).style.backgroundColor = "#f00";
+}
+
+// score render
+function scoreRender(){
+    scoreDiv.style.display = "block";
+
+    // calculate the amount of question Score one question is 10 number answered by the user
+    const scorePerCent =  score*10;
+    const maxScore = " out of 100 ";
+    const name ="{{request.user.first_name}}";
+    scoreDiv.innerHTML += "<p name='name' style='font-size:20px;width:50%;float:center;'>"+ scorePerCent+""+  maxScore +"</p>";
+    scoreDiv.innerHTML += "<p name='maxscore' style='font-size:20px;width:50%;float:center;'>"+   name +"</p>";
+}
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

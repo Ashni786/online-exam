@@ -1,0 +1,127 @@
+{%load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Welcome to Exam</title>
+	<link rel="stylesheet" href="{% static '/dashboard/styles.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="wrapper_inner">
+			<div class="vertical_wrap">
+			<div class="backdrop"></div>
+			<div class="vertical_bar">
+				<div class="profile_info">
+					<div class="img_holder">
+						<img src="{{request.user.userprofile.image.url}}" height="100" width="150" style="border-radius:50px;">
+					</div>
+					<p class="title">{{request.user.first_name}} {{request.user.last_name}}</p>
+					<p class="sub_title">{{user.email}}</p>
+				</div>
+				<ul class="menu">
+					<li><a href="{% url 'index' %}">
+						<span class="icon"><i class="fa fa-home"></i></span>
+						<span class="text">Home</span></a></li>
+
+					<li><a href="{% url 'question:categary' %}" style="margin-top:20px;">
+						<span class="icon"><i class="fas fa-file-alt"></i></span>
+						<span class="text">Exams</span>
+					</a></li>
+                    <li><a href="{% url 'question:profile' %}" style="margin-top:20px;">
+						<span class="icon"><i class="fas fa-user"></i></span>
+						<span class="text">Pofile</span>
+					</a></li>
+
+
+					<li><a href="{% url 'question:changepass' %}" style="margin-top:20px;">
+						<span class="icon"><i class="fas fa fa-key"></i></span>
+						<span class="text">Change-Pass</span>
+					</a></li>
+
+					<li><a href="{% url 'question:contact' %}" style="margin-top:20px;">
+						<span class="icon"><i class="fas fa-address-book"></i></span>
+						<span class="text">Contact-Me</span>
+					</a></li>
+					<li><a href="{% url 'question:feedback' %}" style="margin-top:20px;">
+						<span class="icon"><i class="fas fa-address-book"></i></span>
+						<span class="text">Feed-Back</span>
+					</a></li>
+                    <li><a href="{% url 'logout' %}"  style="margin-top:20px;">
+						<span class="icon"><i class="fas fa-power-off"></i></span>
+						<span class="text">Logout</span>
+					</a></li>
+				</ul>
+
+			</div>
+		</div>
+		<div class="main_container">
+			<div class="top_bar">
+				<div class="hamburger">
+					<i class="fas fa-bars"></i>
+				</div>
+				<ul class="menu">
+				<div class="logo">
+					 Online  <span>Examination</span>
+
+				</div>
+                 </ul>
+			</div>
+
+			<div class="container">
+{% block content%}
+	<style>
+    .cate
+    {
+    height:80%px;
+    width:90%;
+    background-color:#6f4e37;
+    float:left;
+    margin-left:20px;
+    margin-top:10px;
+    border-radius: 25px;
+
+    }
+
+
+</style>
+	<div class="content">
+
+<h1 style="text-align:center;">Welcome to the Online Examination Portal</h1>
+       <a href="" style="text-align:center;margin-top:50px;color:white;">
+    <div class="cate">
+		<h1 style="margin-top:0px;background-color:black;">Exam Category</h1>
+		<img src="{% static 'images/contact-us/categoryofexam.jpg'%}" style="height:450px;width:100%;">
+     <h2 style="margin-top:0px;">Total Nine Category of exam</h2>
+     <h2 style="margin-top:0px;">Each Category Of Ten Questions</h2>
+     <h2 style="margin-top:0px;">user take a life tym there is no limit</h2>
+     <h2 style="margin-top:0px;">after exam user Show the score </h2>
+    </div>
+</a>
+
+				</div>
+  {% endblock %}
+
+			</div>
+
+		</div>
+		</div>
+	</div>
+
+<script>
+	var hamburger = document.querySelector(".hamburger");
+	var wrapper  = document.querySelector(".wrapper");
+	var backdrop = document.querySelector(".backdrop");
+
+	hamburger.addEventListener("click", function(){
+		wrapper.classList.add("active");
+	})
+
+	backdrop.addEventListener("click", function(){
+		wrapper.classList.remove("active");
+	})
+</script>
+<script src="{% static '/dashboard/awsomefont.js' %}"></script>
+</body>
+</html>

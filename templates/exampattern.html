@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div>
+        <h1 style="height:65px;width:100%;background-color:black;color:white;margin-top:100px;text-align:center;border-radius:25px;">Test Instruction</h1>
+        <div class="content">
+            <img src="{% static 'images/contact-us/pattern.png'%}" width ="100%;" style="margin-left:40px;">
+           <h2> A. This test is based on MCQ pattern There are 4 options out of which only one is correct.</h2>
+            <h2>B. Your test duration begins as soon as you view the first question.</h2>
+           <h2> C.  Once you end the test or the test duration gets completed, you will not be able to edit any of the answers.</h2>
+            <h2>D. Click on 'Next' or 'Previous' to move from one question to another. Clicking on 'Next' or 'Previous' will save the answers too.</h2>
+            <h2> E. Click on 'End Test' once you have completed a test. You will not be able to edit or review any of the questions once you have ended a test, so please make sure to review all the questions before ending it. </h2>
+            <h2> F. Once you complete a test, the results will be available immediately .</h2>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,268 @@
+<!--<div style="display:none;">
+{% for que in ques %}`
+<form action="./result" method="post">
+<p>{{ forloop.counter }}.{{ que.question }}</p>
+
+</td>
+           </tr>
+
+          <div class="ans_dv">
+            <input type="hidden" class="curr_ans" value="2">
+        <table class="options" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+              <tbody><tr>
+            <td width="4%" valign="top"><input type="radio" name="{{ que.id  }}" qno="1" id="{{ que.option1 }}" value="1"></td>
+            <td width="96%" valign="top"><p style="width:100%; margin:0px; padding:0px 0px 20px 0px; font:normal 13px Ebrima, Arial, Helvetica, sans-serif;">
+            <span style="color:#00F; font-size:14px;  font-family:Embrima;">A) </span>
+      <span class="answerData">{{ que.option1 }}</span>
+      </p></td>
+          </tr>
+            </tbody></table>
+            <input type="hidden" class="curr_ans" value="2">
+        <table class="options" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+              <tbody><tr>
+            <td width="4%" valign="top">
+                <input type="radio" name="{{ que.id  }}" qno="1" id="{{ que.option2 }}" value="2"></td>
+            <td width="96%" valign="top"><p class="lebel" style="width:100%; margin:0px; padding:0px 0px 20px 0px; font:normal 13px Ebrima, Arial, Helvetica, sans-serif;">
+            <span style="color:#00F; font-size:14px;  font-family:Embrima;">B) </span>
+      <span class="answerData correctData">{{ que.option2 }}</span>
+      </p></td>
+          </tr>
+            </tbody></table>
+            <input type="hidden" class="curr_ans" value="2">
+        <table class="options" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+              <tbody><tr>
+            <td width="4%" valign="top">
+                <input type="radio" name="{{ que.id  }}" qno="1" id="{{ que.option3 }}" value="3"></td>
+            <td width="96%" valign="top"><p class="lebel"  style="width:100%; margin:0px; padding:0px 0px 20px 0px; font:normal 13px Ebrima, Arial, Helvetica, sans-serif;">
+            <span style="color:#00F; font-size:14px;  font-family:Embrima;">C) </span>
+      <span class="answerData">{{ que.option3 }}</span>
+      </p></td>
+          </tr>
+            </tbody></table>
+            <input type="hidden" class="curr_ans" value="2">
+        <table class="options" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+              <tbody><tr>
+            <td width="4%" valign="top">
+                <input type="radio" name="{{ que.id  }}" qno="1" id="{{ que.option4 }}" value="4"></td>
+            <td width="96%" valign="top"><p  class="lebel"  style="width:100%; margin:0px; padding:0px 0px 20px 0px; font:normal 13px Ebrima, Arial, Helvetica, sans-serif;">
+            <span style="color:#00F; font-size:14px;  font-family:Embrima;">D) </span>
+      <span class="answerData">{{ que.option4 }}</span>
+      </p></td>
+          </tr>
+            </tbody></table>
+
+
+</div>
+{% endfor %}
+
+
+  {% csrf_token %}
+  <button type="">Submit</button>
+</form>
+    </div>
+-->
+<!Doctype HTML>
+<html>
+<head>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>QUIZ</title>
+	<link href="https://fonts.googleapis.com/css?family=Macondo" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style>
+     body
+{
+	font-family: 'Macondo', cursive;
+	background-image: url("bg.jpg");
+ 	background-repeat: no-repeat;
+    background-size: 1600px 800px
+}
+#heading
+{     position: absolute;
+	     left:17%;
+    	width: 1000px;
+		background: rgba(255,255,255,0.5);
+		padding: 20px;
+		border: 1px solid #00038c;
+		box-shadow: 0 0 8px 3px #fff;
+}
+#text
+{
+	 text-align: center;
+}
+#quiz
+{
+	    height: 330px;
+    	width: 60%;
+    	position: absolute;
+    	left:20%;
+    	top: 30%;
+    	transform: translateX(-50) translateY(-50);
+		background: rgba(255,255,255,0.5);
+		padding: 20px;
+		border: 1px solid #00038c;
+		box-shadow: 0 0 8px 3px #fff;
+
+}
+#question
+{
+   padding: 20px;
+   font-size: 22px;
+   background: #08038C;
+   border-radius: 10px;
+   margin: 10px 0 10px 0;
+   color: #f6f6f6;
+}
+.option{
+	width: 470px;
+	display: inline-block;
+	padding: 10px 0 10px 0;
+	background: rgba(255,255,255,0.5);
+	margin: 10px 0 10px 10px;
+	color: #0000000;
+	 border: 2px solid #008CBA;
+	border-radius: 5px;
+}
+
+.option:hover{
+	background: #08038C;
+	color: #f6f6f6;
+}
+#next
+{
+	font-family: 'Macondo', cursive;
+	background-color: : #4CAF50;
+	width:10%;
+	height: 4%px;
+	border: 1px solid #00038c;
+	 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	cursor: pointer;;
+	float: right;
+	 padding: 10px 10px;
+
+}
+#next:hover{
+	background-color:rgb(106, 90, 205)
+}
+#quit
+{
+	position: absolute;
+	 right:    0;
+bottom:   0;
+font-family: 'Macondo', cursive;
+	background-color: : #4CAF50;
+
+	border: 1px solid #00038c;
+	 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	cursor: pointer;;
+	float: right;
+	 padding: 5px 5px;
+
+}
+#quit:hover{
+		background-color:rgb(106, 90, 205)
+}
+#result
+{
+	font-size:100px;
+	 text-align: center;
+    	 height: 100px;
+    	width: 60%;
+    	position: absolute;
+    	left:20%;
+    	top: 30%;
+    	transform: translateX(-50) translateY(-50);
+		background: rgba(255,255,255,0.5);
+		padding: 20px;
+		border: 1px solid #00038c;
+		box-shadow: 0 0 8px 3px #fff;
+}
+
+
+ </style>
+</head>
+
+<body>
+	<div id="heading"><h1 id="text">AVENGERS QUIZ</h1></div>
+        {% for que in ques %}`
+
+			<div id="quiz">
+				<div id="question">{{ que.question }}</div>
+				<label class="option"><input type="radio" name="option" value="1" /><span id="option1">{{ que.option1 }}</span></label>
+				<label class="option"><input type="radio" name="option" value="2" /><span id="option2">{{ que.option2 }}</span></label>
+				<label class="option"><input type="radio" name="option" value="3" /><span id="option3">{{ que.option3 }}</span></label>
+				<label class="option"><input type="radio" name="option" value="4" /><span id="option4">{{ que.option4 }}</span></label>
+				<button id="next" onclick="nextques();">NEXT QUESTION</button>
+			</div>
+            {% endfor %}
+			<div id="result" style="display:none">
+			</div>
+			<button id="quit" onclick="quit();">Quit</button>
+			<script type="text/javascript" src="questions.js"></script>
+	<script type="text/javascript" src="main.js">
+        var quiz=document.getElementById("quiz");
+var ques= document.getElementById("question");
+var opt1=document.getElementById("option1");
+var opt2=document.getElementById("option2");
+var opt3=document.getElementById("option3");
+var opt4=document.getElementById("option4");
+var res=document.getElementById("result");
+var nextbutton= document.getElementById("next");
+var q=document.getElementById('quit');
+
+var tques=questions.length;
+var score=0;
+var quesindex=0;
+function quit()
+{
+	      quiz.style.display='none';
+          result.style.display='';
+          var f=score/tques;
+          result.textContent="SCORE ="+f*100;
+          q.style.display="none";
+}
+function give_ques(quesindex)
+{
+	ques.textContent=quesindex+1+". "+questions[quesindex][0];
+	opt1.textContent=questions[quesindex][1];
+	opt2.textContent=questions[quesindex][2];
+	opt3.textContent=questions[quesindex][3];
+	opt4.textContent=questions[quesindex][4];
+	 return;// body...
+};
+give_ques(5);
+function nextques()
+{
+	var selected_ans= document.querySelector('input[type=radio]:checked');
+	if(!selected_ans)
+		{alert("SELECT AN OPTION");return;}
+
+	if(selected_ans.value==questions[quesindex][5])
+		{score=score+1;}
+	selected_ans.checked=false;
+	     quesindex--;
+	     if(quesindex==tques-1)
+	     	nextbutton.textContent="Finish";
+	     var f=score/tques;
+	     if(quesindex==tques)
+	     {
+	     q.style.display='none';
+          quiz.style.display='none';
+          result.style.display='';
+          result.textContent="SCORED:"+(f*100).toFixed(2)+"%";
+            return;
+	     }
+        give_ques(quesindex);
+
+}
+
+    </script>
+
+
+</body>
+</html>

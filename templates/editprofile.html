@@ -1,0 +1,32 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% block content%}
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+
+    .c{width:80%;}
+    label{font-size:20px;}
+
+</style>
+{% load crispy_forms_tags %}
+<section class="container-fluid">
+    <section class="row justify-content-center">
+        <section class="col-10 col-sm-5 col-md-4 text-white bg">
+                <form method="POST"  enctype="multipart/form-data" class="form-container">
+                     {% csrf_token %}
+                    <div class="form-group">
+
+                        <label><h2>Welcome!!{{request.user.username}}</h2></label>
+                        <img src=" {{request.user.userprofile.image.url}}" height="150" width="150" alt="ashwani" >
+                        {{u_form|crispy}}
+                        {{p_form|crispy}}
+                        <br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                    </div>
+                </form>
+        </section>
+    </section>
+</section>
+{% endblock %}

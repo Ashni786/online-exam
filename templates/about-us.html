@@ -1,0 +1,145 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  float:left;
+  margin-left:50px;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+</style>
+	<section id="about-us">
+        <div class="container">			
+			<div class="skill-wrap clearfix">			
+				<div class="center wow fadeInDown">
+
+					<div class="card" style="width:100%;max-width:950px;margin-left:80px;">
+						 <p><button>What is Online Examination</button></p>
+  							<img src="{% static 'images/about/slider_three.jpg'%}" alt="Denim Jeans" style="width:100%;max-height:300px;">
+  								<p class="price">About Online Exam</p>
+ 								 <p>Online examination is a test conducted over the internet. Also, it measures the knowledge level of students. Students can give online exams from their own devices at their own time. The online examination requires an internet connection and a web browser.
+								 </p>
+
+					</div>
+
+				</div>
+				
+
+            </div>
+			<div class="skill-wrap clearfix">
+				<div class="center wow fadeInDown">
+					<h2>What are the different types  <span>Online Examination ?</span></h2>
+					<div class="card">
+						 <p><button>Subjective Test</button></p>
+  							<img src="{% static 'images/about/Subjective-Online-Exam.png'%}" alt="Denim Jeans" style="width:100%">
+ 							 <h1> Subjective Test</h1>
+  								<p class="price">Subjective Test</p>
+ 								 <p>Useful to conduct exams where candidate is supposed to type answers for theory based questions.
+Our platform supports theory based exams with answer checking facility available for examiner.
+								 </p>
+
+					</div>
+					<div class="card">
+						<p><button>Academic Entrance Exams</button></p>
+  							<img src="{% static 'images/about/Edtech.jpg'%}" alt="Denim Jeans" style="width:100%">
+ 							 <h1>Academic Entrance Exams</h1>
+  								<p class="price">Academic Entrance Exams</p>
+ 								 <p>Student selection during admission process is one of the key tasks for the education institutes and universities.
+Collecting student applications, issuing exam hall tickets, managing online entrance exam process and result processing are some of the key tasks to be managed.
+</p>
+
+					</div>
+					<div class="card">
+						<p><button> Online Aptitude Test</button></p>
+  							<img src="{% static 'images/about/mcq.png'%}" alt="Denim Jeans" style="width:100%">
+
+  								<p class="price"> Online Aptitude Test</p>
+ 								 <p>Online Aptitude test is useful to check problem solving, analytical, decision making ability of the individual.
+Apart from domain knowledge it is essential to have aptitude quotient of the person above average level.</p>
+
+					</div>
+				</div>
+
+
+            </div>
+			<!-- our-team -->
+			<div class="team">
+				<div class="center wow fadeInDown">
+					<h2>Team of <span>Online Examination</span></h2>
+					<p class="lead">our Two team member of online Examination System that </p>
+				</div>
+
+				<div class="row clearfix">
+					<div class="col-md-4 col-sm-6">	
+						<div class="single-profile-top wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+							<div class="media">
+								<div class="pull-left">
+									<a href="#"><img class="media-object" src="{% static 'images/contact-us/contactus.jpg'%}" height="250" width="320" alt=""></a>
+								</div>
+								<div class="media-body">
+									<h4 style="text-align:center;background-color:black;color:white;margin-top:5px;width:320px;">Ashwani Kumar</h4>
+									<h5>Founder and CEO</h5>
+
+								</div>
+							</div><!--/.media -->
+							<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+						</div>
+					</div><!--/.col-lg-4 -->
+					
+					
+					<div class="col-md-4 col-sm-6 col-md-offset-2">	
+						<div class="single-profile-top wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+							<div class="media">
+								<div class="pull-left">
+									<a href="#"><img class="media-object" src="{% static 'images/contact-us/chetan.png'%}"  height="250" width="320" alt=""></a>
+								</div>
+								<div class="media-body">
+									<h4 style="text-align:center;background-color:black;color:white;margin-top:5px;width:320px;">Chetan Kumar</h4>
+									<h5>Founder and CEO</h5>
+									<ul class="tag clearfix">
+										<li class="btn"><a href="#">Web</a></li>
+										<li class="btn"><a href="#">Ui</a></li>
+										<li class="btn"><a href="#">Ux</a></li>
+										<li class="btn"><a href="#">Photoshop</a></li>
+									</ul>
+									<ul class="social_icons">
+										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+										<li><a href="#"><i class="fa fa-twitter"></i></a></li> 
+										<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+									</ul>
+								</div>
+							</div><!--/.media -->
+							<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+						</div>
+					</div><!--/.col-lg-4 -->					
+				</div> <!--/.row -->
+
+			</div><!--section-->
+		</div><!--/.container-->
+    </section><!--/about-us-->
+	{% endblock %}
